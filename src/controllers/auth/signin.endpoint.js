@@ -1,4 +1,5 @@
 import { readUser } from "../../database/user.table.js";
+import { generateToken } from "../../utils/auth.utils.js";
 
 export const signinEndpoint = (req, res) => {
   const { userName, password } = req.body;
@@ -15,7 +16,9 @@ export const signinEndpoint = (req, res) => {
     return;
   }
 
+  generateToken(res, { userName });
+
   return res.json({
-    userName,
+    message: "Signed in successfully!",
   });
 };
